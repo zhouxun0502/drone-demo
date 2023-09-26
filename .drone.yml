@@ -6,6 +6,21 @@ steps:
 - name: build
   image: golang:1.21
   commands:
-  - echo "build-----"
-  - chmod +x build.sh
-  - sh build.sh
+    - echo "===> Go Version"
+    - go version
+    - echo "===> Go Proxy"
+    - go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+    - echo "===> Go Env Info"
+    - go env
+
+    - echo "===> Install gf CLI tool"
+    - wget https://github.com/gogf/gf/releases/download/v2.5.2/gf_linux_amd64
+    - chmod +x gf_linux_amd64
+    - mkdir -p $GOPATH/bin
+    - mv gf_linux_amd64 $GOPATH/bin/gf
+    - gf version
+
+    - echo "===> Install go.mod dependencies"
+    - go mod tidy
+    - chmod +x build.sh
+    - sh build.sh
