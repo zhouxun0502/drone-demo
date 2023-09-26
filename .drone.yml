@@ -5,7 +5,6 @@ name: default
 steps:
 - name: build
   image: golang:1.21
-  detach: true
   commands:
   - echo "===> Go Version"
   - go version
